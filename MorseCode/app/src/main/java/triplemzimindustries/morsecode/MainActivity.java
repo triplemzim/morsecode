@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean hasFlash;
     private Camera.Parameters params;
     private String[] morseCodeMap;
-    private int dit = 600;
-    private int dah = 1100;
+    private int dit = 650;
+    private int dah = 1200;
     private int dark = 2200;
     Boolean flag;
     int delay,cnt;
@@ -130,13 +130,17 @@ public class MainActivity extends AppCompatActivity {
         }
         if(idx >= st.length()) return;
         char ch = st.charAt(idx);
-        if(ch >'Z' || ch<'A'){
+        if(ch >'Z' || ch<'0'){
             idx++;
             do_the_work();
             return;
         }
-        int j = (int)ch -(int)'A';
+        int j=35 ;
+        if(ch>='A') j = (int)ch -(int)'A';
+        if(ch>'0' && ch <='9') j = (int) ch -23 ;
+        if(ch =='0') j = 35;
         sent = morseCodeMap[j];
+
         if(chridx >= sent.length()){
             idx++;
             chridx=0;
@@ -147,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
             if(ch =='1') delay = dit;
             else if(ch == '2') delay = dah;
             chridx++;
-            txt.setText("Flash on");
+            //txt.setText("Flash on");
             turnOnFlash();
             flag = false;
         }
@@ -216,7 +220,7 @@ public class MainActivity extends AppCompatActivity {
 //            }
 //            else {
 
-            txt.setText("Flash off");
+            //txt.setText("Flash off");
             turnOffFlash();
             do_the_work();
 
